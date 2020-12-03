@@ -1,6 +1,6 @@
 CC = g++
 
-OBJS = ./src/main.cpp ./src/deck.cpp ./src/card.cpp
+OBJS = ./src/main.cpp ./src/game.cpp ./src/deck.cpp ./src/hand.cpp ./src/card.cpp
 INCS = -Iinclude
 COMPILER_FLAGS = -lm
 
