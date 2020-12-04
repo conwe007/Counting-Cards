@@ -4,6 +4,12 @@
 #include "deck.h"
 #include "hand.h"
 
+#define STAY 0
+#define HIT 1
+
+#define PLAYER 0
+#define DEALER 1
+
 class Game
 {
 private:
@@ -17,6 +23,9 @@ public:
     void reset();
     void dealPlayer();
     void dealDealer();
+    int chooseMovePlayer();
+    int chooseMoveDealer();
+    int bestMovePlayer();
 
     std::string toString();
 };

@@ -3,27 +3,42 @@
 int main(int argc, char* argv[])
 {
     srand(time(nullptr));
-    // Card c(1, 5);
 
-    // std::cout << c.toString() << std::endl;
+    Hand h = Hand();
+    h += Card(0, 0);
+    h += Card(1, 0);
+    h += Card(2, 0);
+    h += Card(3, 0);
 
-    // Deck d = Deck();
-    // d.shuffle();
+    std::cout << h.toString() << h.getWeight() << std::endl;
 
-    // Hand h = Hand();
+    h.lowerOneAce();
 
-    // for(int i = 0; i < 10; i++)
-    // {
-    //     h += d.draw();
-    //     std::cout << h.isBusted() << " " << h.getValue() << " " << h.toString() << std::endl;
-    // }
+    std::cout << h.toString() << h.getWeight() << std::endl;
 
-    Game g = Game();
+    h.lowerOneAce();
 
-    g.reset();
-    g.dealPlayer();
-    g.dealDealer();
-    std::cout << g.toString() << std::endl;
+    std::cout << h.toString() << h.getWeight() << std::endl;
+
+    h.lowerOneAce();
+
+    std::cout << h.toString() << h.getWeight() << std::endl;
+
+    h.lowerOneAce();
+
+    std::cout << h.toString() << h.getWeight() << std::endl;
+
+    h.lowerOneAce();
+    std::cout << h.toString() << h.getWeight() << std::endl;
+
+    h.lowerOneAce();
+
+    // Game g = Game();
+
+    // g.reset();
+    // g.dealPlayer();
+    // g.dealDealer();
+    // std::cout << g.toString() << std::endl;
 
     return 0;
 }

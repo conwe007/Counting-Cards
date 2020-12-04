@@ -10,11 +10,14 @@ class Hand
 {
 private:
     std::vector<Card> cards;
+    int num_aces;
 
 public:
     Hand();
 
-    int getValue();
+    int getWeight();
+    int getNumAces();
+    void lowerOneAce();
     Hand& operator+=(const Card& card);
     void clear();
     bool isBusted();

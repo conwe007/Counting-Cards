@@ -16,12 +16,66 @@ void Game::reset()
 
 void Game::dealPlayer()
 {
-    this->player += this->deck.draw();
+    this->player += this->deck.deal();
 }
 
 void Game::dealDealer()
 {
-    this->dealer += this->deck.draw();
+    this->dealer += this->deck.deal();
+}
+
+int Game::chooseMovePlayer()
+{
+    int move = STAY;
+
+
+
+    return move;
+}
+
+int Game::chooseMoveDealer()
+{
+    int move = STAY;
+
+    switch(this->dealer.getNumAces())
+    {
+        case 0:
+            if(this->dealer.getWeight() < 17)
+            {
+
+            }
+            break;
+        
+        case 1:
+
+            break;
+        
+        case 2:
+
+            break;
+        
+        case 3:
+
+            break;
+        
+        case 4:
+
+            break;
+        
+        default:
+            break;
+    }
+
+    return move;
+}
+
+int Game::bestMovePlayer()
+{
+    int move = STAY;
+
+
+
+    return move;
 }
 
 std::string Game::toString()
@@ -29,7 +83,7 @@ std::string Game::toString()
     std::string output = "";
 
     output += ("Player: " + this->player.toString() + "\n");
-    output += ("Dealer: " + this->dealer.toString() + "\n");
+    output += ("Dealer: " + this->dealer.toString());
 
     return output;
 }

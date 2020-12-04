@@ -5,16 +5,19 @@
 #include <cstdlib>
 #include <string>
 
+#define NUM_CARDS 52
+
 class Deck
 {
 private:
     Card cards[NUM_CARDS];
     int index_deck;
+    int num_cards_left;
 
 public:
     Deck();
 
-    Card draw();
+    Card deal();
     void shuffle();
 
     std::string toString();

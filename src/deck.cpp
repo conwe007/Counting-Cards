@@ -10,12 +10,25 @@ Deck::Deck()
         }
     }
 
-    index_deck = 0;
+    this->index_deck = 0;
+    this->num_cards_left = NUM_CARDS;
 }
 
-Card Deck::draw()
+Card Deck::deal()
 {
-    return this->cards[index_deck++];
+    Card dealt_card;
+
+    if(num_cards_left == 0)
+    {
+        dealt_card = Card();
+    }
+    else
+    {
+        dealt_card = this->cards[index_deck++];
+        num_cards_left--;
+    }
+    
+    return dealt_card;
 }
 
 void Deck::shuffle()
