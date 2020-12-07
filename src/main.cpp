@@ -12,26 +12,26 @@ int main(int argc, char* argv[])
 
     std::cout << h.toString() << h.getWeight() << std::endl;
 
-    h.lowerOneAce();
+    h.hardenOneAce();
 
     std::cout << h.toString() << h.getWeight() << std::endl;
 
-    h.lowerOneAce();
+    h.hardenOneAce();
 
     std::cout << h.toString() << h.getWeight() << std::endl;
 
-    h.lowerOneAce();
+    h.hardenOneAce();
 
     std::cout << h.toString() << h.getWeight() << std::endl;
 
-    h.lowerOneAce();
+    h.hardenOneAce();
 
     std::cout << h.toString() << h.getWeight() << std::endl;
 
-    h.lowerOneAce();
+    h.hardenOneAce();
     std::cout << h.toString() << h.getWeight() << std::endl;
 
-    h.lowerOneAce();
+    h.hardenOneAce();
 
     // Game g = Game();
 

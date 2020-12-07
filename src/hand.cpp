@@ -2,7 +2,8 @@
 
 Hand::Hand()
 {
-    num_aces = 0;
+    num_soft_aces = 0;
+    num_hard_aces = 0;
 }
 
 int Hand::getWeight()
@@ -19,14 +20,14 @@ int Hand::getWeight()
 
 int Hand::getNumAces()
 {
-    return num_aces;
+    return num_soft_aces + num_hard_aces;
 }
 
-void Hand::lowerOneAce()
+void Hand::hardenOneAce()
 {
     for(int index_hand = 0; index_hand < this->cards.size(); index_hand++)
     {
-        if(lut_value[this->cards[index_hand].getValue()] == 'A' && this->cards[index_hand].isHighAce())
+        if(lut_value[this->cards[index_hand].getValue()] == 'A' && this->cards[index_hand].isSoftAce())
         {
             this->cards[index_hand].toggleAceValue();
             return;
@@ -40,7 +41,14 @@ Hand& Hand::operator+=(const Card& card)
 
     if(lut_value[card.getValue()] == 'A')
     {
-        num_aces++;
+        if(card.isSoftAce())
+        {
+            num_soft_aces++;
+        }
+        else
+        {
+            num_hard_aces++;
+        }
     }
 
     return *this;

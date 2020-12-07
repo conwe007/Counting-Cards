@@ -4,7 +4,7 @@ Card::Card()
 {
     this->suit = -1;
     this->value = -1;
-    this->is_high_ace = true;
+    this->is_soft_ace = true;
     this->is_face_down = false;
 }
 
@@ -12,7 +12,7 @@ Card::Card(int suit, int value)
 {
     this->suit = suit;
     this->value = value;
-    this->is_high_ace = true;
+    this->is_soft_ace = true;
     this->is_face_down = false;
 }
 
@@ -32,7 +32,7 @@ int Card::getWeight() const
 
     if(lut_value[this->value] == 'A')
     {
-        if(this->is_high_ace)
+        if(this->is_soft_ace)
         {
             weight = lut_weight[this->value] + ACE_OFFSET;
         }
@@ -59,14 +59,14 @@ void Card::setValue(int value)
     this->value = value;
 }
 
-bool Card::isHighAce()
+bool Card::isSoftAce() const
 {
-    return this->is_high_ace;
+    return this->is_soft_ace;
 }
 
 void Card::toggleAceValue()
 {
-    this->is_high_ace = !this->is_high_ace;
+    this->is_soft_ace = !this->is_soft_ace;
 }
 
 bool Card::isFaceDown()
@@ -86,7 +86,6 @@ Card& Card::operator=(const Card& other)
 
     return *this;
 }
-
 
 std::string Card::toString()
 {

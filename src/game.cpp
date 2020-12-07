@@ -26,7 +26,7 @@ void Game::dealDealer()
 
 int Game::chooseMovePlayer()
 {
-    int move = STAY;
+    int move = MOVE_STAY;
 
 
 
@@ -35,14 +35,14 @@ int Game::chooseMovePlayer()
 
 int Game::chooseMoveDealer()
 {
-    int move = STAY;
+    int move = MOVE_STAY;
 
     switch(this->dealer.getNumAces())
     {
         case 0:
             if(this->dealer.getWeight() < 17)
             {
-
+                
             }
             break;
         
@@ -71,7 +71,7 @@ int Game::chooseMoveDealer()
 
 int Game::bestMovePlayer()
 {
-    int move = STAY;
+    int move = MOVE_STAY;
 
 
 
