@@ -3,8 +3,16 @@
 
 #include "card.h"
 #include <cstdlib>
+#include <iostream>
 #include <string>
 #include <vector>
+
+#define STATE_ERROR -1
+#define STATE_START 0
+#define STATE_STAY 1
+#define STATE_HIT 2
+#define STATE_HARDEN_ACE 3
+#define STATE_BUST 4
 
 class Hand
 {
@@ -12,6 +20,7 @@ private:
     std::vector<Card> cards;
     int num_soft_aces; // number of aces with a weight of 11
     int num_hard_aces; // number of aces with a weight of 1
+    int state; // used to determine next move
 
 public:
     /**
@@ -32,6 +41,27 @@ public:
      * @return the number of aces in the hand
      */
     int getNumAces();
+
+    /**
+     * Returns the number of soft aces in the hand
+     * 
+     * @return the number of soft aces in the hand
+     */
+    int getNumSoftAces();
+
+    /**
+     * Returns hand's state
+     * 
+     * @return hand's state
+     */
+    int getState();
+
+    /**
+     * Sets the hand's state
+     * 
+     * @param state the state to set to
+     */
+    void setState(int state);
 
     /**
      * If at least one soft ace is present in the hand, harden one ace

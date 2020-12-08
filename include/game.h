@@ -4,6 +4,7 @@
 #include "deck.h"
 #include "hand.h"
 
+#define MOVE_ERROR -1
 #define MOVE_STAY 0
 #define MOVE_HIT 1
 #define MOVE_SPLIT 2
@@ -14,7 +15,7 @@
 
 class Game
 {
-private:
+public:
     Deck deck;
     Hand player;
     Hand dealer;

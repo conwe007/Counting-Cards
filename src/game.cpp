@@ -37,32 +37,79 @@ int Game::chooseMoveDealer()
 {
     int move = MOVE_STAY;
 
-    switch(this->dealer.getNumAces())
+    switch(this->dealer.getState())
     {
-        case 0:
+        case STATE_START:
             if(this->dealer.getWeight() < 17)
             {
-                
+                move = MOVE_HIT;
+                this->dealer.setState(STATE_HIT);
+            }
+            else
+            {
+                move = MOVE_STAY;
+                this->dealer.setState(STATE_STAY);
             }
             break;
         
-        case 1:
-
+        case STATE_STAY:
+            move = MOVE_STAY;
+            this->dealer.setState(STATE_STAY);
             break;
         
-        case 2:
-
+        case STATE_HIT:
+            if(this->dealer.getWeight() < 17)
+            {
+                move = MOVE_HIT;
+                this->dealer.setState(STATE_HIT);
+            }
+            else if(this->dealer.getWeight() >= 17 && this->dealer.getWeight() <= 21)
+            {
+                move = MOVE_STAY;
+                this->dealer.setState(STATE_STAY);
+            }
+            else
+            {
+                if(this->dealer.getNumSoftAces() == 0)
+                {
+                    move = MOVE_STAY;
+                    this->dealer.setState(STATE_BUST);
+                }
+                else
+                {
+                    this->dealer.hardenOneAce();
+                    this->dealer.setState(STATE_HARDEN_ACE);
+                    move = this->chooseMoveDealer();
+                }
+            }
             break;
         
-        case 3:
-
+        case STATE_HARDEN_ACE:
+            if(this->dealer.getWeight() < 17)
+            {
+                move = MOVE_HIT;
+                this->dealer.setState(STATE_HIT);
+            }
+            else if(this->dealer.getWeight() >= 17 && this->dealer.getWeight() <= 21)
+            {
+                move = MOVE_STAY;
+                this->dealer.setState(STATE_STAY);
+            }
+            else
+            {
+                move = MOVE_STAY;
+                this->dealer.setState(STATE_BUST);
+            }
             break;
         
-        case 4:
-
+        case STATE_BUST:
+            move = MOVE_STAY;
+            this->dealer.setState(STATE_BUST);
             break;
         
         default:
+            move = MOVE_ERROR;
+            this->dealer.setState(STATE_ERROR);
             break;
     }
 

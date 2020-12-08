@@ -4,6 +4,7 @@ Hand::Hand()
 {
     num_soft_aces = 0;
     num_hard_aces = 0;
+    state = STATE_START;
 }
 
 int Hand::getWeight()
@@ -12,7 +13,8 @@ int Hand::getWeight()
 
     for(int index_hand = 0; index_hand < this->cards.size(); index_hand++)
     {
-        total += (this->cards[index_hand].getWeight());
+        std::cout << this->cards[index_hand].getWeight() << std::endl;
+        total += this->cards[index_hand].getWeight();
     }
 
     return total;
@@ -23,6 +25,21 @@ int Hand::getNumAces()
     return num_soft_aces + num_hard_aces;
 }
 
+int Hand::getNumSoftAces()
+{
+    return num_soft_aces;
+}
+
+int Hand::getState()
+{
+    return state;
+}
+
+void Hand::setState(int state)
+{
+    this->state = state;
+}
+
 void Hand::hardenOneAce()
 {
     for(int index_hand = 0; index_hand < this->cards.size(); index_hand++)
@@ -30,6 +47,8 @@ void Hand::hardenOneAce()
         if(lut_value[this->cards[index_hand].getValue()] == 'A' && this->cards[index_hand].isSoftAce())
         {
             this->cards[index_hand].toggleAceValue();
+            num_soft_aces--;
+            num_hard_aces++;
             return;
         }
     }
@@ -57,6 +76,9 @@ Hand& Hand::operator+=(const Card& card)
 void Hand::clear()
 {
     this->cards.clear();
+    this->num_soft_aces = 0;
+    this->num_hard_aces = 0;
+    this->state = STATE_START;
 }
 
 bool Hand::isBusted()
