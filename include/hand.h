@@ -7,6 +7,12 @@
 #include <string>
 #include <vector>
 
+#define MOVE_ERROR -1
+#define MOVE_STAY 0
+#define MOVE_HIT 1
+#define MOVE_SPLIT 2
+#define MOVE_DOUBLE_DOWN 3
+
 #define STATE_ERROR -1
 #define STATE_START 0
 #define STATE_STAY 1
@@ -93,6 +99,20 @@ public:
      * @return true if weight = 21, false otherwise
      */
     bool isBlackjack();
+
+    /**
+     * Follows the rules of blackjack to determine a move for the dealer and returns an integer indicating a move
+     * 
+     * @return MOVE_STAY or MOVE_HIT
+     */
+    int chooseMoveDealer();
+
+    /**
+     * Takes input from the player and returns an integer indicating a move
+     * 
+     * @return MOVE_STAY, MOVE_HIT, MOVE_SPLIT, or MOVE_DOUBLE_DOWN
+     */
+    int chooseMovePlayer();
 
     /**
      * Returns a string representation of the hand

@@ -13,7 +13,6 @@ int Hand::getWeight()
 
     for(int index_hand = 0; index_hand < this->cards.size(); index_hand++)
     {
-        std::cout << this->cards[index_hand].getWeight() << std::endl;
         total += this->cards[index_hand].getWeight();
     }
 
@@ -103,6 +102,141 @@ bool Hand::isBlackjack()
     }
 
     return is_blackjack;
+}
+
+int Hand::chooseMoveDealer()
+{
+    int move = MOVE_STAY;
+
+    switch(this->state)
+    {
+        case STATE_START:
+        {
+            int dealer_weight = this->getWeight();
+
+            if(dealer_weight < 17)
+            {
+                move = MOVE_HIT;
+                this->state = STATE_HIT;
+            }
+            else
+            {
+                move = MOVE_STAY;
+                this->state = STATE_STAY;
+            }
+            break;
+        }
+        
+        case STATE_STAY:
+        {
+            move = MOVE_STAY;
+            this->state = STATE_STAY;
+            break;
+        }
+        
+        case STATE_HIT:
+        {
+            int dealer_weight = this->getWeight();
+
+            if(dealer_weight < 17)
+            {
+                move = MOVE_HIT;
+                this->state = STATE_HIT;
+            }
+            else if(dealer_weight >= 17 && dealer_weight <= 21)
+            {
+                move = MOVE_STAY;
+                this->state = STATE_STAY;
+            }
+            else
+            {
+                int dealer_num_soft_aces = this->num_soft_aces;
+
+                if(dealer_num_soft_aces == 0)
+                {
+                    move = MOVE_STAY;
+                    this->state = STATE_BUST;
+                }
+                else
+                {
+                    this->hardenOneAce();
+                    this->state = STATE_HARDEN_ACE;
+                    move = this->chooseMoveDealer();
+                }
+            }
+            break;
+        }
+        
+        case STATE_HARDEN_ACE:
+        {
+            int dealer_weight = this->getWeight();
+
+            if(dealer_weight < 17)
+            {
+                move = MOVE_HIT;
+                this->state = STATE_HIT;
+            }
+            else if(dealer_weight >= 17 && dealer_weight <= 21)
+            {
+                move = MOVE_STAY;
+                this->state = STATE_STAY;
+            }
+            else
+            {
+                move = MOVE_STAY;
+                this->state = STATE_BUST;
+            }
+            break;
+        }
+        
+        case STATE_BUST:
+        {
+            move = MOVE_STAY;
+            this->state = STATE_BUST;
+            break;
+        }
+        
+        default:
+        {
+            move = MOVE_ERROR;
+            this->state = STATE_ERROR;
+            break;
+        }
+    }
+
+    return move;
+}
+
+int Hand::chooseMovePlayer()
+{
+    int move = MOVE_ERROR;
+    std::string move_str = "";
+
+    std::cout << "Choose move ('stay'/'st', 'hit'/'h', 'split'/sp', 'double-down'/'dd'): ";
+    std::cin >> move_str;
+
+    if(move_str == "hit" || move_str == "h")
+    {
+        move = MOVE_HIT;
+    }
+    else if(move_str == "stay" || move_str == "st")
+    {
+        move = MOVE_STAY;
+    }
+    else if(move_str == "split" || move_str == "sp")
+    {
+        move = MOVE_SPLIT;
+    }
+    else if(move_str == "double-down" || move_str == "dd")
+    {
+        move = MOVE_DOUBLE_DOWN;
+    }
+    else
+    {
+        move = MOVE_ERROR;
+    }
+    
+    return move;
 }
 
 std::string Hand::toString()
